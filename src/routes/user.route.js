@@ -12,7 +12,7 @@ const {
   deleteAvatar,
 } = require("../controllers/user.controller");
 const idMatch = require("../middleware/idMatch");
-const isAdmin = require("../middleware/isAdmin");
+const { isAdmin } = require("../middleware/roleGuard");
 const protectedRoute = require("../middleware/protectedRoute");
 const router = express.Router();
 

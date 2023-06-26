@@ -7,6 +7,7 @@ async function connect() {
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
+        enableUtf8Validation: true,
       }
     );
     console.log("MongoDB connected!");

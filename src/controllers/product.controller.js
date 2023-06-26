@@ -41,7 +41,7 @@ const getProduct = async (req, res) => {
 
     //* Search function - Pagination - find() model --------------------
     if (querylength > 0 && query.search) {
-      console.log("Normal search");
+      //* Normal search
       data = await Product.find({
         $or: [
           { name: { $regex: query.search, $options: "i" } },
@@ -54,7 +54,7 @@ const getProduct = async (req, res) => {
         .limit(limit)
         .populate("user", ["name"]);
     } else if (querylength > 0 && !query.search) {
-      console.log("Advanced search");
+      //* Advanced search
       data = await Product.find({
         $and: searchArray,
       })
@@ -63,7 +63,7 @@ const getProduct = async (req, res) => {
         .limit(limit)
         .populate("user", ["name"]);
     } else {
-      console.log("No query");
+      //* No search
       data = await Product.find()
         .sort({ createdAt: -1 })
         .skip(startIndex)
@@ -82,7 +82,6 @@ const getProduct = async (req, res) => {
       data,
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };
@@ -98,7 +97,6 @@ const getProductEachUser = async (req, res) => {
       data,
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };
@@ -114,7 +112,6 @@ const getProductDetail = async (req, res) => {
       data,
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };
@@ -130,7 +127,6 @@ const GetProductTop = async (req, res) => {
       data,
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };
@@ -171,7 +167,6 @@ const createProduct = async (req, res) => {
       data: newProduct,
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };
@@ -210,7 +205,6 @@ const updateProduct = async (req, res) => {
       data: updateData,
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };
@@ -233,7 +227,6 @@ const deleteProduct = async (req, res) => {
       data: deleteData,
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };

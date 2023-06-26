@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const sendEmail = async (email, subject, link) => {
+const sendEmail = async (email, subject, link, res) => {
   try {
     const transporter = nodemailer.createTransport({
       host: process.env.MAIL_HOST,
@@ -27,7 +27,7 @@ const sendEmail = async (email, subject, link) => {
       `,
     });
   } catch (error) {
-    console.log(error);
+    return dtoFail(res, 'Cannot send mail!');
   }
 };
 

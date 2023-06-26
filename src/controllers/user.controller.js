@@ -102,7 +102,6 @@ const getUser = async (req, res) => {
       data: dataCurrentUserSorted,
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };
@@ -118,7 +117,6 @@ const getUserDetail = async (req, res) => {
       data,
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };
@@ -143,7 +141,6 @@ const updateUser = async (req, res) => {
       data: updateData,
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };
@@ -164,7 +161,6 @@ const deleteUser = async (req, res) => {
       data: deleteData,
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };
@@ -185,7 +181,6 @@ const getUserProfile = async (req, res) => {
       data,
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };
@@ -222,7 +217,6 @@ const updateUserProfile = async (req, res) => {
       data: updateData,
     });
   } catch (error) {
-    console.log(error);
     return dtoFail(res, "Maybe email is already existed");
   }
 };
@@ -257,7 +251,6 @@ const updateAvatar = async (req, res) => {
       data: updateData,
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };
@@ -282,7 +275,6 @@ const deleteAvatar = async (req, res) => {
       data: deleteData,
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };
@@ -327,7 +319,6 @@ const updatePassword = async (req, res) => {
       data: true,
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };

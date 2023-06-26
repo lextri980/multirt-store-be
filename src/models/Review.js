@@ -13,9 +13,9 @@ const reviewSchema = new Schema(
       ref: "products",
       required: true,
     },
-    name: { type: String, required: true, trim: true },
+    title: { type: String, required: true },
     rating: { type: Number, required: true },
-    comment: { type: String, required: true, trim: true },
+    comment: { type: String, required: true },
   },
   { timestamps: true }
 );

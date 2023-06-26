@@ -1,39 +1,35 @@
 const User = require("../models/User");
 const ResetToken = require("../models/ResetToken");
-const {
-  generateToken,
-  generateRememberedToken,
-} = require("../utils/generateToken");
+const generateToken = require("../utils/generateToken");
 const { emailRegex, passwordRegex } = require("../constants/regex");
 const { dtoSc, dtoFail, dtoServer } = require("../utils/dto");
 const { v4: uuidv4 } = require("uuid");
 const sendEmail = require("../utils/sendMail");
+const Role = require("../models/Role");
 
 //! desc   Login
 //! route  POST /auth/login
 //! access Public
 const login = async (req, res) => {
-  const { email, password, remember } = req.body;
-  const rememberBoolean = remember === "true"; //<remember> is returned in String => change to Boolean
+  const { email, password } = req.body;
   //Validate lack of field
   if (!email || !password) {
     return dtoFail(res, "Missing information");
   }
   try {
-    const user = await User.findOne({ email, password }).select("-password");
+    const user = await User.findOne({ email, password })
+      .select("-password")
+      .populate("role");
     if (!user || !password) {
       return dtoFail(res, "Incorrect information");
     }
     return dtoSc(res, {
       success: true,
       message: "Login successfully",
-      token: rememberBoolean
-        ? generateRememberedToken(user._id)
-        : generateToken(user._id),
+      token: generateToken(user._id),
       user,
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };
@@ -58,18 +54,18 @@ const register = async (req, res) => {
 
   try {
     const user = await User.findOne({ email });
+    const getRole = await Role.find();
     if (user) {
       return dtoFail(res, "Email is already existed");
     }
 
-    const newUser = new User({ name, email, password });
+    const newUser = new User({ name, email, password, role: getRole[2] });
     await newUser.save();
     return dtoSc(res, {
       success: true,
       message: "Register successfully",
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };
@@ -99,17 +95,18 @@ const sendMailReset = async (req, res) => {
         userId: user._id,
         token: uuidv4(),
       }).save();
+    } else {
+      return dtoFail(res, 'Your request has been sent! Try again in 5 minutes');
     }
 
     const linkReset = `${process.env.BASE_URL}/authentication?userId=${user._id}&token=${resetToken.token}`;
-    await sendEmail(user.email, "Reset password", linkReset);
+    await sendEmail(user.email, "Reset password", linkReset, res);
 
     return dtoSc(res, {
       success: true,
-      message: "Send email successfully!",
+      message: `Send email successfully at ${email}!`,
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };
@@ -117,7 +114,6 @@ const sendMailReset = async (req, res) => {
 //! desc   Reset password
 //! route  PUT /auth/reset-password
 //! access public
-
 const resetPassword = async (req, res) => {
   const { password, userId, token } = req.body;
   //Validate lack of field
@@ -150,7 +146,6 @@ const resetPassword = async (req, res) => {
       message: "Change password successfully",
     });
   } catch (error) {
-    console.log(error);
     return dtoServer(res);
   }
 };

@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-const { dtoSc, dtoFail, dtoServer, dto } = require("../utils/dto");
+const { dtoFail, dto } = require("../utils/dto");
 
 const protectedRoute = async (req, res, next) => {
   let token;
@@ -12,9 +12,7 @@ const protectedRoute = async (req, res, next) => {
     token = req.headers.authorization.split(" ")[1];
     try {
       const decoded = jwt.verify(token, process.env.ACCESS_TOKEN);
-
       req.user = await User.findById(decoded.id).select("-password");
-
       next();
     } catch (error) {
       return dto(res, 403, false, "Invalid token");

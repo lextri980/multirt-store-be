@@ -8,7 +8,7 @@ const {
   updateProduct,
   deleteProduct,
 } = require("../controllers/product.controller");
-const isAdmin = require("../middleware/isAdmin");
+const {isAdmin} = require("../middleware/roleGuard");
 const protectedRoute = require("../middleware/protectedRoute");
 const idMatch = require("../middleware/idMatch");
 const uploadCloud = require("../config/cloudinary");
