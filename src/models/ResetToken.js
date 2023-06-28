@@ -14,7 +14,11 @@ const resetTokenSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    expires: 10000,
+  },
+  expireAt: {
+    type: Date,
+    default: Date.now,
+    expires: 120
   },
 });
 

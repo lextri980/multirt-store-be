@@ -82,6 +82,7 @@ const getProduct = async (req, res) => {
       data,
     });
   } catch (error) {
+    console.log(error);
     return dtoServer(res);
   }
 };
@@ -97,6 +98,7 @@ const getProductEachUser = async (req, res) => {
       data,
     });
   } catch (error) {
+    console.log(error);
     return dtoServer(res);
   }
 };
@@ -112,6 +114,7 @@ const getProductDetail = async (req, res) => {
       data,
     });
   } catch (error) {
+    console.log(error);
     return dtoServer(res);
   }
 };
@@ -127,6 +130,7 @@ const GetProductTop = async (req, res) => {
       data,
     });
   } catch (error) {
+    console.log(error);
     return dtoServer(res);
   }
 };
@@ -167,6 +171,7 @@ const createProduct = async (req, res) => {
       data: newProduct,
     });
   } catch (error) {
+    console.log(error);
     return dtoServer(res);
   }
 };
@@ -205,6 +210,7 @@ const updateProduct = async (req, res) => {
       data: updateData,
     });
   } catch (error) {
+    console.log(error);
     return dtoServer(res);
   }
 };
@@ -227,6 +233,7 @@ const deleteProduct = async (req, res) => {
       data: deleteData,
     });
   } catch (error) {
+    console.log(error);
     return dtoServer(res);
   }
 };

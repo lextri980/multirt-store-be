@@ -30,6 +30,7 @@ const login = async (req, res) => {
       user,
     });
   } catch (error) {
+    console.log(error);
     return dtoServer(res);
   }
 };
@@ -66,6 +67,7 @@ const register = async (req, res) => {
       message: "Register successfully",
     });
   } catch (error) {
+    console.log(error);
     return dtoServer(res);
   }
 };
@@ -96,7 +98,7 @@ const sendMailReset = async (req, res) => {
         token: uuidv4(),
       }).save();
     } else {
-      return dtoFail(res, 'Your request has been sent! Try again in 5 minutes');
+      return dtoFail(res, "Your request has been sent! Try again in 2 minutes");
     }
 
     const linkReset = `${process.env.BASE_URL}/authentication?userId=${user._id}&token=${resetToken.token}`;
@@ -107,6 +109,7 @@ const sendMailReset = async (req, res) => {
       message: `Send email successfully at ${email}!`,
     });
   } catch (error) {
+    console.log(error);
     return dtoServer(res);
   }
 };
@@ -146,6 +149,7 @@ const resetPassword = async (req, res) => {
       message: "Change password successfully",
     });
   } catch (error) {
+    console.log(error);
     return dtoServer(res);
   }
 };
