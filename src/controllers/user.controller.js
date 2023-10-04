@@ -213,7 +213,9 @@ const updateUserProfile = async (req, res) => {
     const updateCondition = { _id: req.user.id };
     updateData = await User.findOneAndUpdate(updateCondition, updateData, {
       new: true,
-    }).select("-password");
+    })
+      .select("-password")
+      .populate("role");
     if (!updateData) {
       return dtoFail(res, "User is not found");
     }
@@ -246,7 +248,9 @@ const updateAvatar = async (req, res) => {
     const updateCondition = { _id: req.user.id };
     updateData = await User.findOneAndUpdate(updateCondition, updateData, {
       new: true,
-    });
+    })
+      .select("-password")
+      .populate("role");
 
     if (!updateData) {
       return dtoFail(res, "User is not found");
